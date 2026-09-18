@@ -1025,11 +1025,10 @@
           Publique de graça no GitHub Pages. O token fica só neste navegador (localStorage) — nunca no código do site.
         </p>
         <ol class="admin-publish-steps">
-          <li>Crie uma conta em <a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a>.</li>
-          <li>Crie um repositório público (ex.: <code>ramile-ugc</code>) e envie os arquivos desta pasta (<code>index.html</code>, <code>styles.css</code>, <code>script.js</code>, <code>assets/</code>, <code>data/</code>, <code>.nojekyll</code>).</li>
-          <li>Em Settings → Pages → Source: <strong>Deploy from a branch</strong> → branch <code>main</code> → pasta <code>/</code> (root) → Save.</li>
-          <li>Crie um token: Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate → marque só <code>repo</code> → Generate. Copie o token (aparece uma vez).</li>
-          <li>Cole abaixo usuário, repositório e token. Depois use <strong>Publicar</strong> na barra de edição.</li>
+          <li>Conta GitHub: <a href="https://github.com/signup" target="_blank" rel="noopener">criar</a> ou entrar.</li>
+          <li>Repositório público <code>ramile-ugc</code> com o site (já pode estar criado no GitHub) + Pages em branch <code>main</code> pasta <code>/</code>.</li>
+          <li>Token (só você cria — aparece uma vez): <a href="https://github.com/settings/tokens/new?scopes=repo&amp;description=Ramile%20UGC%20Publicar" target="_blank" rel="noopener">gerar PAT classic com escopo <code>repo</code></a> → Generate token → copiar.</li>
+          <li>Cole usuário, repositório <code>ramile-ugc</code> e o token abaixo → Salvar → use <strong>Publicar</strong> na barra.</li>
         </ol>
         <p class="admin-publish-alt">
           Opcional: Cloudflare Pages também é grátis — conecte o mesmo repositório GitHub no painel da Cloudflare. O fluxo Publicar desta página usa GitHub Pages.
@@ -1041,7 +1040,7 @@
           </label>
           <label class="admin-field">
             <span>Nome do repositório</span>
-            <input type="text" id="publish-repo" autocomplete="off" placeholder="ramile-ugc" required />
+            <input type="text" id="publish-repo" autocomplete="off" placeholder="ramile-ugc" value="ramile-ugc" required />
           </label>
           <label class="admin-field">
             <span>Branch</span>
