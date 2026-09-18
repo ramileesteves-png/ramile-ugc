@@ -1,0 +1,19 @@
+# Secrets and local env
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+**/secrets/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Local server helpers / caches
+*.log
+.cache/
+node_modules/

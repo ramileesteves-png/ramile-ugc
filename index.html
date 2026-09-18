@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ramile Esteves · Conteúdo para marcas</title>
+    <meta
+      name="description"
+      content="Ramile Esteves cria conteúdos para anúncios e redes das marcas — natural, profissional e pronto para usar."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=20260918-1335" />
+    <!-- Aplica mídias ocultas / tamanhos antes da pintura (localStorage). Senha/edições: ver script.js -->
+    <script>
+      (function () {
+        try {
+          var hidden = JSON.parse(localStorage.getItem("ramile_kit_hidden") || "[]");
+          var text = JSON.parse(localStorage.getItem("ramile_kit_text") || "{}");
+          var sizes = JSON.parse(localStorage.getItem("ramile_kit_sizes") || "{}");
+          var order = JSON.parse(localStorage.getItem("ramile_kit_order") || "{}");
+          var boxes = JSON.parse(localStorage.getItem("ramile_kit_boxes") || "{}");
+          /* One-time: drop skinny box widths so layout can fill the screen */
+          if (localStorage.getItem("ramile_kit_boxes_wide_v1") !== "1") {
+            var boxChanged = false;
+            Object.keys(boxes).forEach(function (id) {
+              var b = boxes[id];
+              if (!b || typeof b !== "object") return;
+              var w = Number(b.maxWidthRem);
+              if (w > 0 && w < 40) {
+                delete b.maxWidthRem;
+                boxChanged = true;
+              }
+              var keep =
+                b.align ||
+                b.maxWidthRem != null ||
+                b.minHeightRem != null ||
+                Number(b.xRem) ||
+                Number(b.yRem);
+              if (!keep) {
+                delete boxes[id];
+                boxChanged = true;
+              }
+            });
+            if (boxChanged) localStorage.setItem("ramile_kit_boxes", JSON.stringify(boxes));
+            localStorage.setItem("ramile_kit_boxes_wide_v1", "1");
+          }
+          window.__RAMILE_KIT__ = { hidden: hidden, text: text, sizes: sizes, order: order, boxes: boxes };
+          if (hidden.length) {
+            var css = hidden
+              .map(function (id) {
+                return '[data-media-id="' + String(id).replace(/"/g, "") + '"]{display:none!important}';
+              })
+              .join("");
+            var s = document.createElement("style");
+            s.id = "ramile-kit-hide";
+            s.textContent = css;
+            document.documentElement.appendChild(s);
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="nav">
+      <a class="logo" href="#topo" title="Ramile Esteves">Ramile Esteves</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">
+        Menu
+      </button>
+      <nav id="menu" class="menu">
+        <a href="#sobre">Sobre</a>
+        <a href="#fitness">Fitness</a>
+        <a href="#estilo">Estilo</a>
+        <a href="#nos-dois">Nós dois</a>
+        <a href="#corporativo">Corporativa</a>
+        <a href="#portfolio">Portfólio</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#parceiras">Parceiras</a>
+        <a href="#valores">Valores</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </header>
+
+    <main id="conteudo">
+      <section class="hero" id="topo">
+        <div
+          class="hero-photo"
+          data-media-id="hero-cover"
+          data-media-label="Foto de capa"
+          data-replaceable="image"
+          data-media-fixed
+        >
+          <img
+            src="assets/hero-clean.jpg"
+            alt="Ramile Esteves, criadora de conteúdo para marcas"
+            data-default-src="assets/hero-clean.jpg"
+          />
+        </div>
+        <div class="hero-copy">
+          <p class="eyebrow" data-edit="hero-eyebrow">Conteúdo para marcas · Rio de Janeiro</p>
+          <h1 data-edit="hero-title">Ramile Esteves</h1>
+          <p class="tagline" data-edit="hero-tagline">
+            Crio vídeos e fotos que a sua marca pode usar em anúncios e no próprio
+            perfil — conteúdo real, que conecta e vende.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#contato">Pedir orçamento</a>
+            <a class="btn ghost" href="#portfolio">Ver conteúdos</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section about" id="sobre">
+        <div class="about-grid">
+          <div
+            class="about-photo"
+            data-media-id="about-photo"
+            data-media-label="Foto · sobre"
+            data-replaceable="image"
+            data-media-fixed
+          >
+            <img
+              src="assets/festival-3.jpg"
+              alt="Retrato de Ramile Esteves"
+              data-default-src="assets/festival-3.jpg"
+            />
+          </div>
+          <div class="about-copy">
+            <p class="eyebrow" data-edit="about-eyebrow">Para marcas</p>
+            <h2 data-edit="about-title">Conteúdo pronto para anúncios e para o perfil da marca.</h2>
+            <p data-edit="about-p1">
+              Anúncio com cara de anúncio perde a audiência. Eu crio conteúdos em que
+              o produto entra na rotina de verdade — treino, beleza, lifestyle — para a
+              marca usar no próprio perfil e em campanhas pagas, com a confiança de
+              quem assiste.
+            </p>
+            <p data-edit="about-p2">
+              O foco não é só “aparecer”. É fazer o produto entrar na conversa de
+              forma natural, com storytelling e indicação genuína, para quem assiste
+              se identificar e confiar.
+            </p>
+            <p data-edit="about-p3">
+              Como criadora e parceira de marca, conduzo cada entrega com briefing
+              claro, prazo firme e cuidado no detalhe — conteúdos prontos para o
+              feed, os stories e os anúncios, sem improvisação.
+            </p>
+            <div class="social-row">
+              <a href="https://instagram.com/ramileesteves" target="_blank" rel="noopener"
+                >Instagram · @ramileesteves</a
+              >
+              <a href="https://www.tiktok.com/@mary.ramily" target="_blank" rel="noopener"
+                >TikTok · @mary.ramily</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section fitness-brands" id="fitness">
+        <div class="section-head">
+          <p class="eyebrow" data-edit="fitness-eyebrow">Fitness &amp; performance</p>
+          <h2 data-edit="fitness-title">Conteúdo pronto para marcas de treino.</h2>
+          <p class="section-lead" data-edit="fitness-lead">
+            Para marcas de <strong>roupas fitness</strong>,
+            <strong>suplementos</strong>, <strong>tênis de corrida</strong> e
+            bem-estar, entrego conteúdos com prova real no treino — o produto em uso
+            na academia, não em pose de estúdio. Pronto para o perfil e para anúncios.
+          </p>
+        </div>
+
+        <ul class="niche-list fitness-tags">
+          <li>Roupas e activewear</li>
+          <li>Suplementos</li>
+          <li>Tênis de corrida</li>
+          <li>Acessórios de treino</li>
+          <li>Wellness &amp; recuperação</li>
+        </ul>
+
+        <div class="fitness-grid" data-order-key="fitness-grid">
+          <figure class="fitness-lead" data-media-id="fitness-gym-15" data-media-label="Foto fitness · academia">
+            <img src="assets/gym/gym-15.jpg" alt="Ramile em pose de treino com activewear na academia" />
+            <figcaption data-edit="cap-gym-15">Look fitness · academia</figcaption>
+          </figure>
+          <figure data-media-id="fitness-gym-10" data-media-label="Foto fitness · activewear">
+            <img src="assets/gym/gym-10.jpg" alt="Ramile em treino com activewear" />
+            <figcaption data-edit="cap-gym-10">Activewear no treino</figcaption>
+          </figure>
+          <figure data-media-id="fitness-gym-05" data-media-label="Foto fitness · athleisure">
+            <img src="assets/gym/gym-05.jpg" alt="Ramile em look esportivo" />
+            <figcaption data-edit="cap-gym-05">Fit check · athleisure</figcaption>
+          </figure>
+          <figure data-media-id="fitness-gym-01" data-media-label="Foto fitness · macacão">
+            <img src="assets/gym/gym-01.jpg" alt="Ramile em macacão esportivo" />
+            <figcaption data-edit="cap-gym-01">Peça fitness no dia a dia</figcaption>
+          </figure>
+          <figure data-media-id="fitness-gym-18" data-media-label="Foto fitness · rotina">
+            <img src="assets/gym/gym-18.jpg" alt="Rotina de academia" />
+            <figcaption data-edit="cap-gym-18">Rotina de academia</figcaption>
+          </figure>
+          <figure data-media-id="fitness-gym-12" data-media-label="Foto fitness · lifestyle">
+            <img src="assets/gym/gym-12.jpg" alt="Lifestyle fitness ao ar livre" />
+            <figcaption data-edit="cap-gym-12">Lifestyle ativo</figcaption>
+          </figure>
+        </div>
+
+        <div class="fitness-cta">
+          <p data-edit="fitness-cta">
+            Entregas fitness: reviews, try-ons, rotina de treino e criativos para
+            anúncio — com o produto no contexto real da academia.
+          </p>
+          <a class="btn primary" href="https://wa.me/5522999576817?text=Oi%20Ramile!%20Quero%20falar%20sobre%20conteudo%20fitness" target="_blank" rel="noopener"
+            >Falar sobre conteúdo fitness</a
+          >
+        </div>
+      </section>
+
+      <section class="section style" id="estilo">
+        <div class="section-head">
+          <p class="eyebrow" data-edit="style-eyebrow">Estética &amp; nichos</p>
+          <h2 data-edit="style-title">Conteúdo que encaixa no feed da sua marca.</h2>
+          <p class="section-lead" data-edit="style-lead">
+            Luz suave, traço feminino e zero exagero — imagens com ar de vida real,
+            feitas para conversar com o perfil e atravessar bem o anúncio.
+          </p>
+        </div>
+        <div class="style-grid" data-order-key="style-grid">
+          <button type="button" class="style-card" data-media-id="style-lifestyle" data-media-label="Card · Lifestyle" data-replaceable="image" data-gallery="lifestyle" aria-haspopup="dialog" aria-label="Ver exemplos de Lifestyle e rotina">
+            <img src="assets/lifestyle-2.jpg" alt="" data-default-src="assets/lifestyle-2.jpg" />
+            <h3 data-edit="style-card-lifestyle">Lifestyle &amp; rotina</h3>
+            <span class="style-card-hint" data-edit="style-hint-lifestyle">Ver exemplos</span>
+          </button>
+          <button type="button" class="style-card" data-media-id="style-fitness" data-media-label="Card · Fitness" data-replaceable="image" data-gallery="fitness" aria-haspopup="dialog" aria-label="Ver exemplos de Fitness e academia">
+            <img src="assets/gym/gym-16.jpg" alt="" data-default-src="assets/gym/gym-16.jpg" />
+            <h3 data-edit="style-card-fitness">Fitness &amp; academia</h3>
+            <span class="style-card-hint" data-edit="style-hint-fitness">Ver exemplos</span>
+          </button>
+          <button type="button" class="style-card" data-media-id="style-beleza" data-media-label="Card · Beleza" data-replaceable="image" data-gallery="beleza" aria-haspopup="dialog" aria-label="Ver exemplos de Beleza e moda">
+            <img src="assets/festival-3.jpg" alt="" data-default-src="assets/festival-3.jpg" />
+            <h3 data-edit="style-card-beleza">Beleza &amp; moda</h3>
+            <span class="style-card-hint" data-edit="style-hint-beleza">Ver exemplos</span>
+          </button>
+          <button type="button" class="style-card" data-media-id="style-experiencias" data-media-label="Card · Experiências" data-replaceable="image" data-gallery="experiencias" aria-haspopup="dialog" aria-label="Ver exemplos de Experiências">
+            <img src="assets/lifestyle-food.jpg" alt="" data-default-src="assets/lifestyle-food.jpg" />
+            <h3 data-edit="style-card-experiencias">Experiências</h3>
+            <span class="style-card-hint" data-edit="style-hint-experiencias">Ver exemplos</span>
+          </button>
+          <button type="button" class="style-card" data-media-id="style-casal" data-media-label="Card · Nós dois" data-replaceable="image" data-gallery="casal" aria-haspopup="dialog" aria-label="Ver exemplos de conteúdo a dois">
+            <img src="assets/lifestyle-burger.jpg" alt="" data-default-src="assets/lifestyle-burger.jpg" />
+            <h3 data-edit="style-card-casal">Nós dois</h3>
+            <span class="style-card-hint" data-edit="style-hint-casal">Ver exemplos</span>
+          </button>
+        </div>
+        <ul class="niche-list">
+          <li>Fitness e activewear</li>
+          <li>Suplementos</li>
+          <li>Tênis e corrida</li>
+          <li>Beleza e autocuidado</li>
+          <li>Skincare e cabelo</li>
+          <li>Lifestyle</li>
+          <li>Conteúdo a dois</li>
+        </ul>
+      </section>
+
+      <section class="section couple" id="nos-dois">
+        <div class="section-head">
+          <p class="eyebrow" data-edit="couple-eyebrow">Conteúdo a dois</p>
+          <h2 data-edit="couple-title">Nós dois</h2>
+          <p class="section-lead couple-tagline" data-edit="couple-tagline">
+            Porque algumas experiências ficam ainda melhores quando são compartilhadas.
+          </p>
+        </div>
+
+        <div class="couple-layout">
+          <div class="couple-copy">
+            <p data-edit="couple-p1">
+              Sou casada, e o meu marido pode aparecer no conteúdo quando isso faz sentido
+              para a marca — com naturalidade, humor e a espontaneidade de um casal de verdade.
+              Química e parceria, sem forçar romance.
+            </p>
+            <p data-edit="couple-p2">
+              Rotina a dois, casa, viagem, restaurante, presentes, datas especiais, comida,
+              moda, beleza, lazer, desafios e reações: formatos em que a vida real vira
+              conteúdo útil para o perfil e para a campanha.
+            </p>
+            <p data-edit="couple-p3">
+              A marca escolhe: conteúdo individual, comigo como protagonista, ou a dois,
+              quando o produto e a campanha pedem essa camada humana. Continua sendo uma
+              possibilidade criativa — a base segue lifestyle, beleza, autocuidado, casa e rotina.
+            </p>
+            <ul class="niche-list couple-tags">
+              <li>Rotina e casa</li>
+              <li>Restaurantes e delivery</li>
+              <li>Viagens e lazer</li>
+              <li>Presentes e datas</li>
+              <li>Testes e reações</li>
+              <li>Storytelling a dois</li>
+            </ul>
+            <a
+              class="btn ghost"
+              href="https://wa.me/5522999576817?text=Oi%20Ramile!%20Quero%20falar%20sobre%20conteudo%20a%20dois"
+              target="_blank"
+              rel="noopener"
+              >Falar sobre conteúdo a dois</a
+            >
+          </div>
+
+          <div class="couple-grid" data-order-key="couple-grid">
+            <figure class="couple-feature" data-media-id="couple-story-01" data-media-label="Casal · lanchonete">
+              <video controls playsinline preload="metadata" src="assets/videos/story-01.mp4"></video>
+              <figcaption data-edit="cap-couple-01">Visita à lanchonete com o marido</figcaption>
+            </figure>
+            <figure data-media-id="couple-story-06" data-media-label="Casal · treino">
+              <video controls playsinline preload="metadata" src="assets/videos/story-06.mp4"></video>
+              <figcaption data-edit="cap-couple-06">Treino a dois · academia</figcaption>
+            </figure>
+            <figure data-media-id="couple-food" data-media-label="Casal · gastronomia">
+              <img src="assets/lifestyle-food.jpg" alt="Experiência gastronômica" />
+              <figcaption data-edit="cap-couple-food">Restaurante e experiências</figcaption>
+            </figure>
+            <figure data-media-id="couple-burger" data-media-label="Casal · delivery">
+              <img src="assets/lifestyle-burger.jpg" alt="Momento gastronômico casual" />
+              <figcaption data-edit="cap-couple-burger">Comida, delivery e humor</figcaption>
+            </figure>
+            <figure data-media-id="couple-collage" data-media-label="Casal · lifestyle">
+              <img src="assets/lifestyle-food-collage.jpg" alt="Lifestyle e comida" />
+              <figcaption data-edit="cap-couple-collage">Pequenos momentos do dia a dia</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section corporate" id="corporativo">
+        <div class="section-head">
+          <p class="eyebrow" data-edit="corp-eyebrow">Mary Ramily · no trabalho</p>
+          <h2 data-edit="corp-title">Corporativa</h2>
+          <p class="section-lead" data-edit="corp-lead">
+            Uma faixa à parte do lifestyle: conteúdos sobre rotina profissional,
+            carreira e o dia a dia no trabalho — no TikTok
+            <strong>@mary.ramily</strong>.
+          </p>
+        </div>
+
+        <div class="corporate-layout">
+          <div class="corporate-copy">
+            <p data-edit="corp-p1">
+              Em @mary.ramily eu falo do mundo do trabalho com tom claro e humano —
+              dicas, bastidores e histórias que cabem no feed de quem vive a rotina
+              corporativa (incluindo contextos como offshore e carreira).
+            </p>
+            <p data-edit="corp-p2">
+              É uma linha própria, separada do kit de lifestyle e marcas de consumo:
+              aqui o foco é autoridade, identificação profissional e conteúdo que
+              conversa com quem está no escritório, na operação ou em transição de carreira.
+            </p>
+            <p data-edit="corp-p3">
+              Marcas de educação, RH, finanças pessoais, tecnologia no trabalho ou
+              bem-estar profissional encontram neste perfil um tom sério sem perder
+              leveza — pronto para o TikTok e para campanhas alinhadas a esse universo.
+            </p>
+            <div class="social-row">
+              <a href="https://www.tiktok.com/@mary.ramily" target="_blank" rel="noopener"
+                >TikTok · @mary.ramily</a
+              >
+            </div>
+            <a
+              class="btn ghost-dark"
+              href="https://wa.me/5522999576817?text=Oi%20Ramile!%20Quero%20falar%20sobre%20conteudo%20corporativo%20%40mary.ramily"
+              target="_blank"
+              rel="noopener"
+              ><span data-edit="corp-cta">Falar sobre conteúdo corporativo</span></a
+            >
+          </div>
+
+          <div class="corporate-showcase" data-order-key="corporate-showcase">
+            <figure
+              class="corporate-feature"
+              data-media-id="corp-offshore-1"
+              data-media-label="Corporativa · foto 1"
+              data-replaceable="image"
+            >
+              <img
+                src="assets/offshore-1.jpg"
+                alt="Conteúdo corporativo · Mary Ramily"
+                data-default-src="assets/offshore-1.jpg"
+              />
+              <figcaption data-edit="cap-corp-1">Rotina e bastidores do trabalho</figcaption>
+            </figure>
+            <figure
+              data-media-id="corp-offshore-2"
+              data-media-label="Corporativa · foto 2"
+              data-replaceable="image"
+            >
+              <img
+                src="assets/offshore-2.jpg"
+                alt="Ambiente profissional"
+                data-default-src="assets/offshore-2.jpg"
+              />
+              <figcaption data-edit="cap-corp-2">Ambiente e presença profissional</figcaption>
+            </figure>
+            <figure
+              data-media-id="corp-offshore-3"
+              data-media-label="Corporativa · foto 3"
+              data-replaceable="image"
+            >
+              <img
+                src="assets/offshore-3.jpg"
+                alt="Conteúdo no trabalho"
+                data-default-src="assets/offshore-3.jpg"
+              />
+              <figcaption data-edit="cap-corp-3">Histórias do dia a dia no trabalho</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section portfolio" id="portfolio">
+        <div class="section-head">
+          <p class="eyebrow" data-edit="portfolio-eyebrow">Portfólio</p>
+          <h2 data-edit="portfolio-title">Conteúdos feitos para a marca aparecer bem.</h2>
+          <p class="section-lead" data-edit="portfolio-lead">
+            Reels, Stories e fotos com estética limpa e tom natural — prontos para
+            o Instagram, anúncios e o dia a dia da marca.
+          </p>
+        </div>
+
+        <h3 class="subhead" data-edit="reels-subhead">Reels</h3>
+        <p class="section-lead" data-edit="reels-lead" style="margin-bottom: 1.2rem">
+          Vídeos curtos de produto, rotina e lifestyle — o formato em que mais
+          produzo para marcas.
+        </p>
+        <div class="ig-grid" data-order-key="ig-grid">
+          <div class="media-item" data-media-id="ig-DdHFOUnRElf" data-media-label="Reel Instagram 1">
+            <blockquote
+              class="instagram-media"
+              data-instgrm-permalink="https://www.instagram.com/reel/DdHFOUnRElf/"
+              data-instgrm-version="14"
+              style="background:#FFF; border:0; margin:0; max-width:540px; width:100%"
+            >
+              <a href="https://www.instagram.com/reel/DdHFOUnRElf/" target="_blank" rel="noopener">Ver no Instagram</a>
+            </blockquote>
+          </div>
+          <div class="media-item" data-media-id="ig-DckC9_pSojE" data-media-label="Reel Instagram 2">
+            <blockquote
+              class="instagram-media"
+              data-instgrm-permalink="https://www.instagram.com/reel/DckC9_pSojE/"
+              data-instgrm-version="14"
+              style="background:#FFF; border:0; margin:0; max-width:540px; width:100%"
+            >
+              <a href="https://www.instagram.com/reel/DckC9_pSojE/" target="_blank" rel="noopener">Ver no Instagram</a>
+            </blockquote>
+          </div>
+          <div class="media-item" data-media-id="ig-DcZkzA3RljA" data-media-label="Reel Instagram 3">
+            <blockquote
+              class="instagram-media"
+              data-instgrm-permalink="https://www.instagram.com/reel/DcZkzA3RljA/"
+              data-instgrm-version="14"
+              style="background:#FFF; border:0; margin:0; max-width:540px; width:100%"
+            >
+              <a href="https://www.instagram.com/reel/DcZkzA3RljA/" target="_blank" rel="noopener">Ver no Instagram</a>
+            </blockquote>
+          </div>
+        </div>
+        <p class="social-line" style="margin: 1rem 0 2rem">
+          Mais reels:
+          <a href="https://www.instagram.com/ramileesteves/reels/" target="_blank" rel="noopener"
+            >@ramileesteves</a
+          >
+        </p>
+
+        <h3 class="subhead" data-edit="stories-subhead">Stories</h3>
+        <p class="section-lead" data-edit="stories-lead" style="margin-bottom: 1.2rem">
+          Verticais rápidos para o feed efêmero: indicação, rotina e produto no
+          tom do dia a dia.
+        </p>
+        <div class="story-grid" id="story-videos" data-order-key="story-videos">
+          <figure class="story-card" data-media-id="story-01" data-media-label="Story · lanchonete">
+            <video controls playsinline preload="metadata" src="assets/videos/story-01.mp4"></video>
+            <figcaption data-edit="cap-story-01">Visita à lanchonete com o marido</figcaption>
+          </figure>
+          <figure class="story-card" data-media-id="story-02" data-media-label="Story · treino">
+            <video controls playsinline preload="metadata" src="assets/videos/story-02.mp4"></video>
+            <figcaption data-edit="cap-story-02">Story de treino · malhando</figcaption>
+          </figure>
+          <figure class="story-card" data-media-id="story-04" data-media-label="Story · viagem">
+            <video controls playsinline preload="metadata" src="assets/videos/story-04.mp4"></video>
+            <figcaption data-edit="cap-story-04">Recomendação de viagem e pousada</figcaption>
+          </figure>
+          <figure class="story-card" data-media-id="story-05" data-media-label="Story · academia">
+            <video controls playsinline preload="metadata" src="assets/videos/story-05.mp4"></video>
+            <figcaption data-edit="cap-story-05">Treino na academia</figcaption>
+          </figure>
+          <figure class="story-card" data-media-id="story-06" data-media-label="Story · treino a dois">
+            <video controls playsinline preload="metadata" src="assets/videos/story-06.mp4"></video>
+            <figcaption data-edit="cap-story-06">Treino a dois · academia com o marido</figcaption>
+          </figure>
+          <figure class="story-card" data-media-id="story-07" data-media-label="Story · hambúrguer">
+            <video controls playsinline preload="metadata" src="assets/videos/story-07.mp4"></video>
+            <figcaption data-edit="cap-story-07">Degustação de hambúrguer</figcaption>
+          </figure>
+          <figure class="story-card" data-media-id="story-08" data-media-label="Story · restaurante">
+            <video controls playsinline preload="metadata" src="assets/videos/story-08.mp4"></video>
+            <figcaption data-edit="cap-story-08">Recomendação de restaurante</figcaption>
+          </figure>
+          <figure class="story-card" data-media-id="story-09" data-media-label="Story · tour">
+            <video controls playsinline preload="metadata" src="assets/videos/story-09.mp4"></video>
+            <figcaption data-edit="cap-story-09">Tour pelo restaurante</figcaption>
+          </figure>
+          <figure class="story-card" data-media-id="story-10" data-media-label="Story · corrida">
+            <video controls playsinline preload="metadata" src="assets/videos/story-10.mp4"></video>
+            <figcaption data-edit="cap-story-10">Convite e promoção de corrida</figcaption>
+          </figure>
+        </div>
+
+        <h3 class="subhead" data-edit="tiktok-subhead">Também no TikTok</h3>
+        <div class="video-grid" data-order-key="video-grid">
+          <figure class="video-card" data-media-id="tiktok-7560777973662502200" data-media-label="TikTok · storytelling">
+            <div class="tiktok-frame">
+              <blockquote
+                class="tiktok-embed"
+                cite="https://www.tiktok.com/@mary.ramily/video/7560777973662502200"
+                data-video-id="7560777973662502200"
+                style="max-width: 605px; min-width: 325px"
+              >
+                <section>
+                  <a
+                    target="_blank"
+                    rel="noopener"
+                    href="https://www.tiktok.com/@mary.ramily/video/7560777973662502200"
+                    >Ver no TikTok</a
+                  >
+                </section>
+              </blockquote>
+            </div>
+            <figcaption data-edit="cap-tiktok-1">Storytelling · retenção e autoridade</figcaption>
+          </figure>
+          <figure class="video-card" data-media-id="tiktok-7558156524414160140" data-media-label="TikTok · bastidores">
+            <div class="tiktok-frame">
+              <blockquote
+                class="tiktok-embed"
+                cite="https://www.tiktok.com/@mary.ramily/video/7558156524414160140"
+                data-video-id="7558156524414160140"
+                style="max-width: 605px; min-width: 325px"
+              >
+                <section>
+                  <a
+                    target="_blank"
+                    rel="noopener"
+                    href="https://www.tiktok.com/@mary.ramily/video/7558156524414160140"
+                    >Ver no TikTok</a
+                  >
+                </section>
+              </blockquote>
+            </div>
+            <figcaption data-edit="cap-tiktok-2">Bastidores · narrativa natural</figcaption>
+          </figure>
+          <figure class="video-card" data-media-id="tiktok-7529662339117894968" data-media-label="TikTok · lifestyle">
+            <div class="tiktok-frame">
+              <blockquote
+                class="tiktok-embed"
+                cite="https://www.tiktok.com/@mary.ramily/video/7529662339117894968"
+                data-video-id="7529662339117894968"
+                style="max-width: 605px; min-width: 325px"
+              >
+                <section>
+                  <a
+                    target="_blank"
+                    rel="noopener"
+                    href="https://www.tiktok.com/@mary.ramily/video/7529662339117894968"
+                    >Ver no TikTok</a
+                  >
+                </section>
+              </blockquote>
+            </div>
+            <figcaption data-edit="cap-tiktok-3">Lifestyle · tom de conversa</figcaption>
+          </figure>
+        </div>
+
+        <div class="portfolio-block photos-block">
+          <p class="eyebrow" data-edit="photos-eyebrow">Fotos</p>
+          <h3 class="subhead" data-edit="photos-title">Fotos prontas para o feed e para campanha.</h3>
+          <p class="section-lead" data-edit="photos-lead">
+            Imagens para marcas: lifestyle, fitness, moda e rotina — prontas para
+            perfil, anúncio e criativos estáticos.
+          </p>
+          <div class="photo-grid" data-order-key="photo-grid">
+            <figure data-media-id="photo-fitness-solo-night" data-media-label="Foto · lifestyle fitness">
+              <img src="assets/fitness-solo-night.jpg" alt="Foto lifestyle fitness" />
+              <figcaption data-edit="cap-photo-1">Lifestyle fitness</figcaption>
+            </figure>
+            <figure data-media-id="photo-festival-2" data-media-label="Foto · moda">
+              <img src="assets/festival-2.jpg" alt="Foto moda e estética" />
+              <figcaption data-edit="cap-photo-2">Moda &amp; estética</figcaption>
+            </figure>
+            <figure data-media-id="photo-lifestyle-1" data-media-label="Foto · estética limpa">
+              <img src="assets/lifestyle-1.jpg" alt="Foto estética limpa" />
+              <figcaption data-edit="cap-photo-3">Estética limpa</figcaption>
+            </figure>
+            <figure data-media-id="photo-fitness-run" data-media-label="Foto · movimento">
+              <img src="assets/fitness-run.jpg" alt="Foto de movimento e performance" />
+              <figcaption data-edit="cap-photo-4">Movimento</figcaption>
+            </figure>
+            <figure data-media-id="photo-gallery-2" data-media-label="Foto · rotina">
+              <img src="assets/gallery-2.jpg" alt="Foto de rotina" />
+              <figcaption data-edit="cap-photo-5">Rotina</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section services" id="servicos">
+        <div class="section-head">
+          <p class="eyebrow" data-edit="services-eyebrow">Serviços</p>
+          <h2 data-edit="services-title">Formatos pensados para performance da marca.</h2>
+        </div>
+        <div class="services-grid">
+          <article>
+            <h3 data-edit="svc-1-title">Conteúdo fitness</h3>
+            <p data-edit="svc-1-body">
+              Try-on de roupa esportiva, rotina de treino, suplementos e tênis —
+              conteúdo para perfil e anúncios de marcas de performance.
+            </p>
+          </article>
+          <article>
+            <h3 data-edit="svc-2-title">Conteúdo para anúncios</h3>
+            <p data-edit="svc-2-body">
+              Vídeos curtos para Meta Ads, TikTok Ads e criativos pagos — com gancho,
+              benefício e CTA.
+            </p>
+          </article>
+          <article>
+            <h3 data-edit="svc-3-title">Conteúdo para o perfil</h3>
+            <p data-edit="svc-3-body">
+              Materiais para feed, Reels e stories da marca: review, unboxing,
+              demonstração e GRWM.
+            </p>
+          </article>
+          <article>
+            <h3 data-edit="svc-4-title">Fotos de produto</h3>
+            <p data-edit="svc-4-body">Imagens estáticas para e-commerce, catálogo, site e posts.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section why" id="porque">
+        <div class="section-head">
+          <p class="eyebrow" data-edit="why-eyebrow">Por que contratar</p>
+          <h2 data-edit="why-title">O que a marca ganha com o meu conteúdo.</h2>
+          <p class="section-lead" data-edit="why-lead">
+            Conteúdos feitos para o feed, os stories e os anúncios da marca —
+            com cara de indicação real, prontos para publicar.
+          </p>
+        </div>
+        <div class="why-grid">
+          <article>
+            <h3 data-edit="why-1-title">Pronto para usar</h3>
+            <p data-edit="why-1-body">Arquivos entregues para publicar no perfil ou em campanha.</p>
+          </article>
+          <article>
+            <h3 data-edit="why-2-title">Tom que conecta</h3>
+            <p data-edit="why-2-body">Indicação natural que gera confiança — sem cara de propaganda forçada.</p>
+          </article>
+          <article>
+            <h3 data-edit="why-3-title">Entrega profissional</h3>
+            <p data-edit="why-3-body">Briefing, prazo, revisão e atenção aos detalhes.</p>
+          </article>
+          <article>
+            <h3 data-edit="why-4-title">Encaixa no feed</h3>
+            <p data-edit="why-4-body">Estética limpa e atual, fácil de integrar à identidade da marca.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section process" id="processo">
+        <div class="section-head">
+          <p class="eyebrow" data-edit="process-eyebrow">Processo</p>
+          <h2 data-edit="process-title">Do briefing à entrega pronta para publicar.</h2>
+        </div>
+        <ol class="process-list">
+          <li>
+            <span>01</span>
+            <div>
+              <h3 data-edit="proc-1-title">Briefing</h3>
+              <p data-edit="proc-1-body">Objetivo da campanha, público, produto e onde o conteúdo vai rodar.</p>
+            </div>
+          </li>
+          <li>
+            <span>02</span>
+            <div>
+              <h3 data-edit="proc-2-title">Roteiro</h3>
+              <p data-edit="proc-2-body">Alinhamos mensagem, tom e referências antes de gravar.</p>
+            </div>
+          </li>
+          <li>
+            <span>03</span>
+            <div>
+              <h3 data-edit="proc-3-title">Criação</h3>
+              <p data-edit="proc-3-body">Gravo e edito o conteúdo pronto para a marca publicar no feed, nos stories e em anúncios.</p>
+            </div>
+          </li>
+          <li>
+            <span>04</span>
+            <div>
+              <h3 data-edit="proc-4-title">Aprovação</h3>
+              <p data-edit="proc-4-body">Vocês revisam; ajusto o que for necessário.</p>
+            </div>
+          </li>
+          <li>
+            <span>05</span>
+            <div>
+              <h3 data-edit="proc-5-title">Entrega</h3>
+              <p data-edit="proc-5-body">Arquivos finais prontos para anúncio e perfil.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section partners" id="parceiras">
+        <div class="section-head">
+          <p class="eyebrow" data-edit="partners-eyebrow">Parcerias</p>
+          <h2 data-edit="partners-title">Marcas parceiras</h2>
+          <p class="section-lead" data-edit="partners-lead">
+            Espaço para marcas com quem já trabalhei — e para novas parcerias em
+            fitness, beleza, lifestyle e conteúdo a dois. Troque as fotos pelos logos
+            no modo edição.
+          </p>
+        </div>
+
+        <div class="partner-grid" data-order-key="partner-grid">
+          <figure class="partner-card" data-media-id="partner-slot-1" data-media-label="Parceira 1" data-replaceable="image">
+            <div class="partner-logo">
+              <img
+                src="assets/fitness-gym.jpg"
+                alt="Espaço para logo da marca parceira"
+                data-default-src="assets/fitness-gym.jpg"
+              />
+            </div>
+            <figcaption>
+              <h3 data-edit="partner-1-name">Fitness &amp; performance</h3>
+              <p data-edit="partner-1-note">Espaço para nome / logo da marca</p>
+            </figcaption>
+          </figure>
+          <figure class="partner-card" data-media-id="partner-slot-2" data-media-label="Parceira 2" data-replaceable="image">
+            <div class="partner-logo">
+              <img
+                src="assets/lifestyle-2.jpg"
+                alt="Espaço para logo da marca parceira"
+                data-default-src="assets/lifestyle-2.jpg"
+              />
+            </div>
+            <figcaption>
+              <h3 data-edit="partner-2-name">Beleza &amp; skincare</h3>
+              <p data-edit="partner-2-note">Espaço para nome / logo da marca</p>
+            </figcaption>
+          </figure>
+          <figure class="partner-card" data-media-id="partner-slot-3" data-media-label="Parceira 3" data-replaceable="image">
+            <div class="partner-logo">
+              <img
+                src="assets/lifestyle-1.jpg"
+                alt="Espaço para logo da marca parceira"
+                data-default-src="assets/lifestyle-1.jpg"
+              />
+            </div>
+            <figcaption>
+              <h3 data-edit="partner-3-name">Lifestyle &amp; rotina</h3>
+              <p data-edit="partner-3-note">Espaço para nome / logo da marca</p>
+            </figcaption>
+          </figure>
+          <figure class="partner-card" data-media-id="partner-slot-4" data-media-label="Parceira 4" data-replaceable="image">
+            <div class="partner-logo">
+              <img
+                src="assets/lifestyle-food.jpg"
+                alt="Espaço para logo da marca parceira"
+                data-default-src="assets/lifestyle-food.jpg"
+              />
+            </div>
+            <figcaption>
+              <h3 data-edit="partner-4-name">Conteúdo a dois</h3>
+              <p data-edit="partner-4-note">Espaço para nome / logo da marca</p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="partner-cta">
+          <p data-edit="partners-cta-text">
+            Se a sua marca busca conteúdo natural para o perfil ou para anúncios,
+            podemos conversar com calma sobre encaixe e formato.
+          </p>
+          <a
+            class="btn ghost-dark"
+            href="https://wa.me/5522999576817?text=Oi%20Ramile!%20Quero%20falar%20sobre%20parceria%20de%20marca"
+            target="_blank"
+            rel="noopener"
+            ><span data-edit="partners-cta-btn">Conversar sobre parceria</span></a
+          >
+        </div>
+      </section>
+
+      <section class="section rates" id="valores">
+        <div class="section-head">
+          <p class="eyebrow" data-edit="rates-eyebrow">Investimento</p>
+          <h2 data-edit="rates-title">Valores de partida.</h2>
+          <p class="section-lead" data-edit="rates-lead">
+            Kits de conteúdos com Stories, Reels (até 1 minuto) e fotos.
+            Uso pago em anúncios e direitos extras entram no orçamento.
+          </p>
+        </div>
+        <div class="rate-grid rate-grid-kits" data-order-key="rate-kits">
+          <div class="rate-card" data-media-id="rate-kit-essencial" data-media-label="Kit Essencial">
+            <h3 data-edit="kit-essencial-title">Kit Essencial</h3>
+            <p class="rate-card-lead" data-edit="kit-essencial-lead">Para começar com a marca no feed e nos stories.</p>
+            <ul>
+              <li><span data-edit="kit-essencial-1">3 Stories</span></li>
+              <li><span data-edit="kit-essencial-2">1 Reel <small>até 1 min · 1 revisão</small></span></li>
+              <li><span data-edit="kit-essencial-3">5 fotos</span></li>
+            </ul>
+            <p class="rate-price" data-edit="kit-essencial-price">R$ 320</p>
+          </div>
+          <div class="rate-card rate-card-featured" data-media-id="rate-kit-campanha" data-media-label="Kit Campanha">
+            <h3 data-edit="kit-campanha-title">Kit Campanha</h3>
+            <p class="rate-card-lead" data-edit="kit-campanha-lead">Volume ideal para testar criativos e perfil.</p>
+            <ul>
+              <li><span data-edit="kit-campanha-1">6 Stories</span></li>
+              <li><span data-edit="kit-campanha-2">3 Reels <small>até 1 min · 1 revisão</small></span></li>
+              <li><span data-edit="kit-campanha-3">10 fotos</span></li>
+            </ul>
+            <p class="rate-price" data-edit="kit-campanha-price">R$ 690</p>
+          </div>
+          <div class="rate-card" data-media-id="rate-kit-completo" data-media-label="Kit Completo">
+            <h3 data-edit="kit-completo-title">Kit Completo</h3>
+            <p class="rate-card-lead" data-edit="kit-completo-lead">Mais variedade para campanha e conteúdo contínuo.</p>
+            <ul>
+              <li><span data-edit="kit-completo-1">10 Stories</span></li>
+              <li><span data-edit="kit-completo-2">5 Reels <small>até 1 min · 1 revisão</small></span></li>
+              <li><span data-edit="kit-completo-3">15 fotos</span></li>
+            </ul>
+            <p class="rate-price" data-edit="kit-completo-price">R$ 980</p>
+          </div>
+        </div>
+        <div class="rate-grid rate-grid-simple" data-order-key="rate-avulsos">
+          <div class="rate-card" data-media-id="rate-avulso-video" data-media-label="Reels e Stories avulsos">
+            <h3 data-edit="avulso-video-title">Reels &amp; Stories avulsos</h3>
+            <ul>
+              <li><span data-edit="avulso-v1-label">1 vídeo <small>até 1 min · 1 revisão</small></span><strong data-edit="avulso-v1-price">R$ 150</strong></li>
+              <li><span data-edit="avulso-v3-label">3 vídeos</span><strong data-edit="avulso-v3-price">R$ 380</strong></li>
+              <li><span data-edit="avulso-v5-label">5 vídeos</span><strong data-edit="avulso-v5-price">R$ 550</strong></li>
+            </ul>
+          </div>
+          <div class="rate-card" data-media-id="rate-avulso-foto" data-media-label="Fotos avulsas">
+            <h3 data-edit="avulso-foto-title">Fotos avulsas</h3>
+            <ul>
+              <li><span data-edit="avulso-f5-label">5 fotos</span><strong data-edit="avulso-f5-price">R$ 80</strong></li>
+              <li><span data-edit="avulso-f10-label">10 fotos</span><strong data-edit="avulso-f10-price">R$ 140</strong></li>
+              <li><span data-edit="avulso-f15-label">15 fotos</span><strong data-edit="avulso-f15-price">R$ 190</strong></li>
+            </ul>
+          </div>
+        </div>
+        <p class="fineprint" data-edit="rates-fineprint">
+          Orçamento sob medida conforme briefing, quantidade e tipo de uso (orgânico
+          ou pago).
+        </p>
+      </section>
+
+      <section class="section contact" id="contato">
+        <div class="contact-panel">
+          <div class="contact-copy">
+            <p class="eyebrow" data-edit="contact-eyebrow">Contato</p>
+            <h2 data-edit="contact-title">Vamos falar sobre o conteúdo da sua marca.</h2>
+            <p data-edit="contact-body">
+              Conte o produto, o objetivo e onde o material vai rodar — feed,
+              stories ou anúncios. Respondo com um orçamento claro e objetivo.
+            </p>
+          </div>
+          <div class="contact-actions">
+            <a class="btn primary" href="https://wa.me/5522999576817" target="_blank" rel="noopener"
+              ><span data-edit="contact-whatsapp">WhatsApp · (22) 99957-6817</span></a
+            >
+            <a class="btn ghost-dark" href="mailto:ramileesteves@gmail.com"
+              ><span data-edit="contact-email">ramileesteves@gmail.com</span></a
+            >
+            <div class="social-row light">
+              <a href="https://instagram.com/ramileesteves" target="_blank" rel="noopener"
+                >Instagram · @ramileesteves</a
+              >
+              <a href="https://www.tiktok.com/@mary.ramily" target="_blank" rel="noopener"
+                >TikTok · @mary.ramily</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="niche-modal" id="niche-gallery" hidden>
+      <div class="niche-modal-backdrop" data-close-gallery></div>
+      <div class="niche-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="niche-gallery-title">
+        <div class="niche-modal-head">
+          <h2 id="niche-gallery-title">Exemplos</h2>
+          <button type="button" class="niche-modal-close" data-close-gallery aria-label="Fechar galeria">&times;</button>
+        </div>
+        <div class="niche-modal-body" id="niche-gallery-body"></div>
+      </div>
+    </div>
+
+    <!-- Admin CMS UI (visível só com body.edit-mode — visitantes nunca veem) -->
+    <div id="admin-bar" class="admin-bar" hidden>
+      <span class="admin-bar-label">Modo edição</span>
+      <button type="button" class="admin-bar-btn" data-admin="hidden">Itens ocultos</button>
+      <button type="button" class="admin-bar-btn" data-admin="export">Exportar backup</button>
+      <label class="admin-bar-btn admin-bar-file">
+        Importar backup
+        <input type="file" id="admin-import" accept="application/json,.json" hidden />
+      </label>
+      <button type="button" class="admin-bar-btn admin-bar-publish" data-admin="publish">Publicar</button>
+      <button type="button" class="admin-bar-btn" data-admin="publish-config">Configurar publicação</button>
+      <button type="button" class="admin-bar-btn" data-admin="help">Ajuda</button>
+      <button type="button" class="admin-bar-btn" data-admin="password">Senha</button>
+      <button type="button" class="admin-bar-btn" data-admin="reset">Resetar</button>
+      <button type="button" class="admin-bar-btn admin-bar-exit" data-admin="exit">Sair do modo edição</button>
+    </div>
+
+    <div id="admin-layout-toolbar" class="admin-layout-toolbar" hidden>
+      <span class="admin-layout-title">Tamanho</span>
+      <button type="button" class="admin-layout-btn" data-layout-size="-" aria-label="Diminuir">−</button>
+      <span class="admin-layout-size" id="admin-layout-size-label">M</span>
+      <button type="button" class="admin-layout-btn" data-layout-size="+" aria-label="Aumentar">+</button>
+      <button type="button" class="admin-layout-btn admin-layout-replace" data-layout-replace hidden>
+        Trocar foto
+      </button>
+      <span class="admin-layout-hint">Arraste para reordenar</span>
+    </div>
+
+    <div id="admin-text-toolbar" class="admin-text-toolbar" hidden>
+      <span class="admin-layout-title">Caixa</span>
+      <span class="admin-text-group">
+        <span class="admin-text-label">Alinhar</span>
+        <button type="button" class="admin-layout-btn admin-align-btn" data-text-box="align-left" title="Esquerda" aria-label="Alinhar à esquerda">Esq</button>
+        <button type="button" class="admin-layout-btn admin-align-btn" data-text-box="align-center" title="Centro" aria-label="Centralizar">Centro</button>
+        <button type="button" class="admin-layout-btn admin-align-btn" data-text-box="align-right" title="Direita" aria-label="Alinhar à direita">Dir</button>
+      </span>
+      <span class="admin-text-group">
+        <span class="admin-text-label">Largura</span>
+        <button type="button" class="admin-layout-btn" data-text-box="w-" aria-label="Diminuir largura">−</button>
+        <span class="admin-layout-size" id="admin-text-w-label">auto</span>
+        <button type="button" class="admin-layout-btn" data-text-box="w+" aria-label="Aumentar largura">+</button>
+      </span>
+      <span class="admin-text-group">
+        <span class="admin-text-label">Altura</span>
+        <button type="button" class="admin-layout-btn" data-text-box="h-" aria-label="Diminuir altura">−</button>
+        <span class="admin-layout-size" id="admin-text-h-label">auto</span>
+        <button type="button" class="admin-layout-btn" data-text-box="h+" aria-label="Aumentar altura">+</button>
+      </span>
+      <span class="admin-layout-hint">Arraste ◇ para mover · canto para tamanho</span>
+      <button type="button" class="admin-layout-btn admin-text-reset" data-text-box="reset" title="Resetar caixa">↺</button>
+    </div>
+
+    <div class="admin-modal" id="admin-auth-modal" hidden>
+      <div class="admin-modal-backdrop" data-close-auth></div>
+      <div class="admin-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="admin-auth-title">
+        <h2 id="admin-auth-title">Área da dona</h2>
+        <p class="admin-modal-lead" id="admin-auth-lead">Digite sua senha para editar o site.</p>
+        <form id="admin-auth-form">
+          <label class="admin-field">
+            <span id="admin-pw-label">Senha</span>
+            <input type="password" id="admin-pw" autocomplete="current-password" required minlength="4" />
+          </label>
+          <label class="admin-field" id="admin-pw2-wrap" hidden>
+            <span>Confirmar senha</span>
+            <input type="password" id="admin-pw2" autocomplete="new-password" minlength="4" />
+          </label>
+          <p class="admin-error" id="admin-auth-error" hidden></p>
+          <div class="admin-modal-actions">
+            <button type="button" class="btn ghost" data-close-auth>Cancelar</button>
+            <button type="submit" class="btn primary" id="admin-auth-submit">Entrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="admin-modal" id="admin-help-modal" hidden>
+      <div class="admin-modal-backdrop" data-close-help></div>
+      <div class="admin-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="admin-help-title">
+        <h2 id="admin-help-title">Como editar o site</h2>
+        <ul class="admin-help-list">
+          <li><strong>Textos:</strong> clique em qualquer texto com contorno suave e digite. Salva sozinho.</li>
+          <li><strong>Caixa de texto:</strong> com o texto selecionado, use <em>Alinhar</em> (Esq · Centro · Dir), <em>Largura −/+</em> e <em>Altura −/+</em>. Arraste o ◇ no topo para mover a caixa; o canto inferior direito redimensiona. ↺ reseta. Tudo entra no backup.</li>
+          <li><strong>Foto de capa / Sobre / Estilo:</strong> no modo edição, use “Trocar foto” em cima da imagem (capa do site, foto Sobre, e cada card de Estética &amp; nichos). Escolha um arquivo — fica salvo neste navegador. Nos cards de nicho, a galeria abre só por “Ver exemplos”.</li>
+          <li><strong>Galeria — Stories:</strong> use “+ Adicionar vídeo” acima dos stories e escolha um arquivo do celular/PC. O × no canto tira da página (dá para restaurar em “Itens ocultos”).</li>
+          <li><strong>Galeria — abas Estilo / Nós dois:</strong> clique no card da aba; no modal use “+ Adicionar foto ou vídeo”, arraste para reordenar e × para remover.</li>
+          <li><strong>Layout — tamanho:</strong> clique num card/foto/vídeo — aparece “Tamanho − / +” (P · M · G) e “Trocar foto” quando for imagem.</li>
+          <li><strong>Layout — ordem:</strong> arraste o card para trocar a disposição na grade.</li>
+          <li><strong>Backup:</strong> Exportar/Importar JSON (textos, caixas, ocultos, tamanhos, ordem, galerias, fotos trocadas). Arquivos novos ficam neste navegador.</li>
+          <li><strong>Publicar:</strong> (só no modo edição) envia textos/layout/fotos razoáveis para o GitHub Pages, para todo mundo ver no link público. Configure uma vez em “Configurar publicação”. Vídeos grandes: coloque em <code>assets/</code> e publique o HTML, ou use o aviso do Publicar.</li>
+          <li><strong>Sair:</strong> “Sair do modo edição” — visitantes não veem a barra nem Publicar.</li>
+        </ul>
+        <div class="admin-modal-actions">
+          <button type="button" class="btn primary" data-close-help>Entendi</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-modal" id="admin-hidden-modal" hidden>
+      <div class="admin-modal-backdrop" data-close-hidden></div>
+      <div class="admin-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="admin-hidden-title">
+        <h2 id="admin-hidden-title">Itens ocultos</h2>
+        <p class="admin-modal-lead">Restaure o que ocultou por engano.</p>
+        <ul class="admin-hidden-list" id="admin-hidden-list"></ul>
+        <p class="admin-empty" id="admin-hidden-empty" hidden>Nenhum item oculto.</p>
+        <div class="admin-modal-actions">
+          <button type="button" class="btn ghost" data-close-hidden>Fechar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-modal" id="admin-publish-modal" hidden>
+      <div class="admin-modal-backdrop" data-close-publish></div>
+      <div class="admin-modal-dialog admin-publish-dialog" role="dialog" aria-modal="true" aria-labelledby="admin-publish-title">
+        <h2 id="admin-publish-title">Configurar publicação</h2>
+        <p class="admin-modal-lead">
+          Publique de graça no GitHub Pages. O token fica só neste navegador (localStorage) — nunca no código do site.
+        </p>
+        <ol class="admin-publish-steps">
+          <li>Crie uma conta em <a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a>.</li>
+          <li>Crie um repositório público (ex.: <code>ramile-ugc</code>) e envie os arquivos desta pasta (<code>index.html</code>, <code>styles.css</code>, <code>script.js</code>, <code>assets/</code>, <code>data/</code>, <code>.nojekyll</code>).</li>
+          <li>Em Settings → Pages → Source: <strong>Deploy from a branch</strong> → branch <code>main</code> → pasta <code>/</code> (root) → Save.</li>
+          <li>Crie um token: Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate → marque só <code>repo</code> → Generate. Copie o token (aparece uma vez).</li>
+          <li>Cole abaixo usuário, repositório e token. Depois use <strong>Publicar</strong> na barra de edição.</li>
+        </ol>
+        <p class="admin-publish-alt">
+          Opcional: Cloudflare Pages também é grátis — conecte o mesmo repositório GitHub no painel da Cloudflare. O fluxo Publicar desta página usa GitHub Pages.
+        </p>
+        <form id="admin-publish-form">
+          <label class="admin-field">
+            <span>Usuário GitHub</span>
+            <input type="text" id="publish-username" autocomplete="username" placeholder="seu-usuario" required />
+          </label>
+          <label class="admin-field">
+            <span>Nome do repositório</span>
+            <input type="text" id="publish-repo" autocomplete="off" placeholder="ramile-ugc" required />
+          </label>
+          <label class="admin-field">
+            <span>Branch</span>
+            <input type="text" id="publish-branch" autocomplete="off" placeholder="main" value="main" />
+          </label>
+          <label class="admin-field">
+            <span>Token (PAT com escopo repo)</span>
+            <input type="password" id="publish-token" autocomplete="off" placeholder="ghp_…" required />
+          </label>
+          <p class="admin-publish-url" id="publish-url-preview" hidden></p>
+          <p class="admin-error" id="admin-publish-error" hidden></p>
+          <p class="admin-publish-ok" id="admin-publish-ok" hidden></p>
+          <div class="admin-modal-actions">
+            <button type="button" class="btn ghost" data-close-publish>Fechar</button>
+            <button type="submit" class="btn primary">Salvar configuração</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p data-edit="footer-line">Ramile Esteves · conteúdo para anúncios e redes de marcas</p>
+      <p>
+        <a href="mailto:ramileesteves@gmail.com">ramileesteves@gmail.com</a>
+        ·
+        <a href="https://wa.me/5522999576817">(22) 99957-6817</a>
+        ·
+        <button type="button" class="admin-unlock-link" id="admin-unlock-link">editar</button>
+      </p>
+    </footer>
+
+    <script>
+      (function () {
+        try {
+          var kit = window.__RAMILE_KIT__ || {};
+          var text = kit.text || {};
+          Object.keys(text).forEach(function (id) {
+            var el = document.querySelector('[data-edit="' + id.replace(/"/g, "") + '"]');
+            if (el) el.innerHTML = text[id];
+          });
+          var sizes = kit.sizes || {};
+          Object.keys(sizes).forEach(function (id) {
+            var size = String(sizes[id] || "").toLowerCase();
+            if (size !== "p" && size !== "g") return;
+            var el = document.querySelector('[data-media-id="' + id.replace(/"/g, "") + '"]');
+            if (el) el.setAttribute("data-kit-size", size);
+          });
+          var order = kit.order || {};
+          Object.keys(order).forEach(function (key) {
+            var ids = order[key];
+            if (!Array.isArray(ids) || !ids.length) return;
+            var container = document.querySelector('[data-order-key="' + key.replace(/"/g, "") + '"]');
+            if (!container) return;
+            ids.forEach(function (id) {
+              var child = container.querySelector(':scope > [data-media-id="' + String(id).replace(/"/g, "") + '"]');
+              if (child) container.appendChild(child);
+            });
+          });
+          var boxes = kit.boxes || {};
+          Object.keys(boxes).forEach(function (id) {
+            var el = document.querySelector('[data-edit="' + id.replace(/"/g, "") + '"]');
+            var box = boxes[id];
+            if (!el || !box || typeof box !== "object") return;
+            var layoutLocked =
+              el.closest(".section-head") ||
+              el.classList.contains("section-lead") ||
+              el.classList.contains("subhead");
+            var align = box.align;
+            if (align === "left" || align === "center" || align === "right") {
+              el.style.textAlign = align;
+              if (align === "center") {
+                el.style.marginLeft = "auto";
+                el.style.marginRight = "auto";
+              } else if (align === "right") {
+                el.style.marginLeft = "auto";
+                el.style.marginRight = "0";
+              }
+            }
+            if (box.maxWidthRem && !layoutLocked) {
+              el.style.maxWidth = box.maxWidthRem + "rem";
+              el.style.width = "100%";
+            }
+            if (box.minHeightRem) el.style.minHeight = box.minHeightRem + "rem";
+            var x = Number(box.xRem) || 0;
+            var y = Number(box.yRem) || 0;
+            if (x || y) {
+              el.style.position = "relative";
+              if (x) {
+                el.style.left = x + "rem";
+                el.style.marginLeft = "";
+                el.style.marginRight = "";
+              }
+              if (y) el.style.top = y + "rem";
+              el.setAttribute("data-box-moved", "1");
+            }
+          });
+        } catch (e) {}
+      })();
+    </script>
+    <script async src="https://www.instagram.com/embed.js"></script>
+    <script async src="https://www.tiktok.com/embed.js"></script>
+    <script src="script.js?v=20260918-1335"></script>
+  </body>
+</html>
