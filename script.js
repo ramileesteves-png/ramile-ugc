@@ -400,6 +400,12 @@ const STORE = {
 const IDB_NAME = "ramile_kit_blobs";
 const IDB_STORE = "files";
 const DEFAULT_HINT = "ramile2026";
+/** Prefill for Configurar publicação (matches this GitHub Pages repo) */
+const PUBLISH_DEFAULTS = {
+  username: "ramileesteves-png",
+  repo: "ramile-ugc",
+  branch: "main",
+};
 const SIZE_STEPS = ["p", "m", "g"];
 const SIZE_LABELS = { p: "P", m: "M", g: "G" };
 const BOX_W_MIN = 12;
@@ -740,6 +746,42 @@ function getPublishConfig() {
   return readJson(STORE.publish, null);
 }
 
+/** Normalize pasted GitHub user/repo (URLs, @user, owner/repo, .git). */
+function normalizePublishIdentity(username, repo) {
+  let user = String(username || "").trim().replace(/^@/, "");
+  let name = String(repo || "").trim();
+
+  const fromUrl = (raw) => {
+    const m = String(raw || "").match(
+      /github\.com[/:]([^/\s]+)\/([^/\s#?]+)/i
+    );
+    if (!m) return null;
+    return { user: m[1], repo: m[2].replace(/\.git$/i, "") };
+  };
+
+  const parsedUser = fromUrl(user);
+  if (parsedUser) {
+    user = parsedUser.user;
+    if (!name) name = parsedUser.repo;
+  }
+  const parsedRepo = fromUrl(name);
+  if (parsedRepo) {
+    if (!user) user = parsedRepo.user;
+    name = parsedRepo.repo;
+  }
+
+  if (name.includes("/")) {
+    const parts = name.split("/").filter(Boolean);
+    if (parts.length >= 2) {
+      if (!user) user = parts[parts.length - 2];
+      name = parts[parts.length - 1];
+    }
+  }
+  name = name.replace(/\.git$/i, "");
+
+  return { username: user, repo: name };
+}
+
 function publicSiteUrl(cfg) {
   if (!cfg?.username || !cfg?.repo) return "";
   return `https://${cfg.username}.github.io/${cfg.repo}/`;
@@ -747,8 +789,10 @@ function publicSiteUrl(cfg) {
 
 function updatePublishUrlPreview() {
   if (!publishUrlPreview) return;
-  const user = (publishUsername?.value || "").trim();
-  const repo = (publishRepo?.value || "").trim();
+  const { username: user, repo } = normalizePublishIdentity(
+    publishUsername?.value,
+    publishRepo?.value
+  );
   if (!user || !repo) {
     publishUrlPreview.hidden = true;
     publishUrlPreview.textContent = "";
@@ -756,6 +800,36 @@ function updatePublishUrlPreview() {
   }
   publishUrlPreview.hidden = false;
   publishUrlPreview.innerHTML = `URL pública: <a href="https://${user}.github.io/${repo}/" target="_blank" rel="noopener">https://${user}.github.io/${repo}/</a>`;
+}
+
+function githubApiErrorMessage(status, errText, phase) {
+  const snippet = (errText || "").replace(/\s+/g, " ").trim().slice(0, 180);
+  const where =
+    phase === "read"
+      ? "ao ler data/published.json"
+      : "ao gravar data/published.json";
+  if (status === 401) {
+    return (
+      `Token inválido ou expirado (${status} ${where}). Gere um novo PAT classic com escopo repo e cole de novo em Configurar. ${snippet}`
+    );
+  }
+  if (status === 403) {
+    return (
+      `Sem permissão de escrita (${status} ${where}). Use PAT classic com escopo repo, ou fine-grained com Contents: Read and write neste repositório. ${snippet}`
+    );
+  }
+  if (status === 404) {
+    return (
+      `Não encontrado (${status} ${where}). Confira usuário e repositório (ex.: ${PUBLISH_DEFAULTS.username} / ${PUBLISH_DEFAULTS.repo}). ` +
+      `Se estiverem corretos, o GitHub costuma devolver 404 quando o token está errado ou sem permissão — gere um PAT com repo e salve de novo. ${snippet}`
+    );
+  }
+  if (status === 409 || status === 422) {
+    return (
+      `Conflito ao atualizar o arquivo (${status}). Tente Publicar de novo; se continuar, confira a branch (main). ${snippet}`
+    );
+  }
+  return `Falha ao publicar (${status} ${where}). ${snippet}`;
 }
 
 function showPublishError(msg) {
@@ -778,16 +852,23 @@ function openPublishModal() {
   if (!document.body.classList.contains("edit-mode") || !isUnlocked()) return;
   if (!publishModal) return;
   const cfg = getPublishConfig() || {};
-  if (publishUsername) publishUsername.value = cfg.username || "";
-  if (publishRepo) publishRepo.value = cfg.repo || "";
-  if (publishBranch) publishBranch.value = cfg.branch || "main";
+  if (publishUsername) {
+    publishUsername.value = cfg.username || PUBLISH_DEFAULTS.username;
+  }
+  if (publishRepo) publishRepo.value = cfg.repo || PUBLISH_DEFAULTS.repo;
+  if (publishBranch) {
+    publishBranch.value = cfg.branch || PUBLISH_DEFAULTS.branch;
+  }
   if (publishToken) publishToken.value = cfg.token || "";
   showPublishError("");
   showPublishOk("");
   updatePublishUrlPreview();
   publishModal.hidden = false;
   document.body.classList.add("admin-modal-open");
-  setTimeout(() => publishUsername && publishUsername.focus(), 50);
+  setTimeout(() => {
+    if (publishToken && !publishToken.value) publishToken.focus();
+    else if (publishUsername) publishUsername.focus();
+  }, 50);
 }
 
 function closePublishModal() {
@@ -1913,17 +1994,26 @@ if (publishForm) {
   publishForm.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!document.body.classList.contains("edit-mode") || !isUnlocked()) return;
-    const username = (publishUsername?.value || "").trim().replace(/^@/, "");
-    const repo = (publishRepo?.value || "").trim();
-    const branch = (publishBranch?.value || "main").trim() || "main";
+    const { username, repo } = normalizePublishIdentity(
+      publishUsername?.value,
+      publishRepo?.value
+    );
+    const branch =
+      (publishBranch?.value || PUBLISH_DEFAULTS.branch).trim() ||
+      PUBLISH_DEFAULTS.branch;
     const token = (publishToken?.value || "").trim();
     if (!username || !repo || !token) {
       showPublishError("Preencha usuário, repositório e token.");
       return;
     }
+    if (publishUsername) publishUsername.value = username;
+    if (publishRepo) publishRepo.value = repo;
+    if (publishBranch) publishBranch.value = branch;
     writeJson(STORE.publish, { username, repo, branch, token });
     showPublishError("");
-    showPublishOk("Configuração salva neste navegador. Agora use Publicar na barra.");
+    showPublishOk(
+      `Configuração salva neste navegador (${username}/${repo}, branch ${branch}). Agora use Publicar na barra.`
+    );
     updatePublishUrlPreview();
   });
 }
@@ -2256,7 +2346,10 @@ async function collectPublishPayload() {
 
 async function githubPutPublished(cfg, json) {
   const path = "data/published.json";
-  const apiBase = `https://api.github.com/repos/${encodeURIComponent(cfg.username)}/${encodeURIComponent(cfg.repo)}/contents/${path}`;
+  const owner = encodeURIComponent(cfg.username);
+  const repo = encodeURIComponent(cfg.repo);
+  const branch = cfg.branch || PUBLISH_DEFAULTS.branch;
+  const apiBase = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
   const headers = {
     Accept: "application/vnd.github+json",
     Authorization: `Bearer ${cfg.token}`,
@@ -2265,19 +2358,26 @@ async function githubPutPublished(cfg, json) {
   };
 
   let sha;
-  const getRes = await fetch(`${apiBase}?ref=${encodeURIComponent(cfg.branch || "main")}`, { headers });
+  const getRes = await fetch(`${apiBase}?ref=${encodeURIComponent(branch)}`, {
+    headers,
+  });
   if (getRes.ok) {
     const existing = await getRes.json();
     sha = existing.sha;
+  } else if (getRes.status === 401 || getRes.status === 403) {
+    const errText = await getRes.text();
+    throw new Error(githubApiErrorMessage(getRes.status, errText, "read"));
   } else if (getRes.status !== 404) {
     const errText = await getRes.text();
-    throw new Error(`Não foi possível ler o arquivo no GitHub (${getRes.status}). ${errText.slice(0, 180)}`);
+    throw new Error(githubApiErrorMessage(getRes.status, errText, "read"));
   }
+  // 404 on GET: arquivo ainda não existe OU token inválido (GitHub mascara auth).
+  // Segue para PUT; se for auth, o PUT também falha com mensagem clara.
 
   const body = {
     message: `Publicar conteúdo do site · ${new Date().toISOString()}`,
     content: utf8ToBase64(json),
-    branch: cfg.branch || "main",
+    branch,
   };
   if (sha) body.sha = sha;
 
@@ -2288,7 +2388,7 @@ async function githubPutPublished(cfg, json) {
   });
   if (!putRes.ok) {
     const errText = await putRes.text();
-    throw new Error(`Falha ao publicar (${putRes.status}). Confira token (repo), usuário e nome do repositório. ${errText.slice(0, 220)}`);
+    throw new Error(githubApiErrorMessage(putRes.status, errText, "write"));
   }
   return putRes.json();
 }
@@ -2298,8 +2398,23 @@ async function publishToGitHub() {
     alert("Publicar só está disponível no modo edição.");
     return;
   }
-  const cfg = getPublishConfig();
-  if (!cfg?.username || !cfg?.repo || !cfg?.token) {
+  const raw = getPublishConfig();
+  if (!raw?.token) {
+    openPublishModal();
+    showPublishError("Configure usuário, repositório e token antes de publicar.");
+    return;
+  }
+  const identity = normalizePublishIdentity(
+    raw.username || PUBLISH_DEFAULTS.username,
+    raw.repo || PUBLISH_DEFAULTS.repo
+  );
+  const cfg = {
+    username: identity.username,
+    repo: identity.repo,
+    branch: (raw.branch || PUBLISH_DEFAULTS.branch).trim() || PUBLISH_DEFAULTS.branch,
+    token: String(raw.token || "").trim(),
+  };
+  if (!cfg.username || !cfg.repo || !cfg.token) {
     openPublishModal();
     showPublishError("Configure usuário, repositório e token antes de publicar.");
     return;
