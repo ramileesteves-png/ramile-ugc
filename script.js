@@ -2278,7 +2278,7 @@ async function serializeGalleryForPublish(warnings) {
   return out;
 }
 
-async function collectPublishPayload() {
+async function collectPublishPayload(previousPublished) {
   const warnings = [];
   const images = {};
   const imageMap = getImagesMap();
@@ -2288,6 +2288,14 @@ async function collectPublishPayload() {
     const embedded = await tryEmbedBlob(entry.blobId, warnings, `Foto trocada (${id})`);
     if (embedded) images[id] = { dataUrl: embedded.dataUrl, mime: embedded.mime, updatedAt: entry.updatedAt };
   }
+  /* Never wipe photos already on GitHub if this browser couldn't re-embed them */
+  const prevImages =
+    previousPublished && typeof previousPublished.images === "object" ? previousPublished.images : {};
+  Object.keys(prevImages).forEach((id) => {
+    if (images[id]) return;
+    const prev = prevImages[id];
+    if (prev && (prev.dataUrl || prev.src)) images[id] = prev;
+  });
 
   const custom = [];
   for (const entry of getCustomMedia()) {
@@ -2344,7 +2352,55 @@ async function collectPublishPayload() {
   return { payload, json, warnings };
 }
 
-async function githubPutPublished(cfg, json) {
+function decodeGithubFileContent(content, encoding) {
+  if (!content) return "";
+  const raw = String(content).replace(/\n/g, "");
+  if (encoding && encoding !== "base64") return raw;
+  const binary = atob(raw);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+
+/** GET data/published.json via Contents API — returns { sha, data } or { sha:null, data:null } */
+async function githubGetPublished(cfg) {
+  const path = "data/published.json";
+  const owner = encodeURIComponent(cfg.username);
+  const repo = encodeURIComponent(cfg.repo);
+  const branch = cfg.branch || PUBLISH_DEFAULTS.branch;
+  const apiBase = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+  const headers = {
+    Accept: "application/vnd.github+json",
+    Authorization: `Bearer ${cfg.token}`,
+    "X-GitHub-Api-Version": "2022-11-28",
+  };
+
+  const getRes = await fetch(`${apiBase}?ref=${encodeURIComponent(branch)}`, {
+    headers,
+  });
+  if (getRes.ok) {
+    const existing = await getRes.json();
+    let data = null;
+    try {
+      const text = decodeGithubFileContent(existing.content, existing.encoding);
+      data = JSON.parse(text);
+    } catch {
+      data = null;
+    }
+    return { sha: existing.sha, data };
+  }
+  if (getRes.status === 401 || getRes.status === 403) {
+    const errText = await getRes.text();
+    throw new Error(githubApiErrorMessage(getRes.status, errText, "read"));
+  }
+  if (getRes.status !== 404) {
+    const errText = await getRes.text();
+    throw new Error(githubApiErrorMessage(getRes.status, errText, "read"));
+  }
+  return { sha: null, data: null };
+}
+
+async function githubPutPublished(cfg, json, sha) {
   const path = "data/published.json";
   const owner = encodeURIComponent(cfg.username);
   const repo = encodeURIComponent(cfg.repo);
@@ -2357,20 +2413,6 @@ async function githubPutPublished(cfg, json) {
     "Content-Type": "application/json",
   };
 
-  let sha;
-  const getRes = await fetch(`${apiBase}?ref=${encodeURIComponent(branch)}`, {
-    headers,
-  });
-  if (getRes.ok) {
-    const existing = await getRes.json();
-    sha = existing.sha;
-  } else if (getRes.status === 401 || getRes.status === 403) {
-    const errText = await getRes.text();
-    throw new Error(githubApiErrorMessage(getRes.status, errText, "read"));
-  } else if (getRes.status !== 404) {
-    const errText = await getRes.text();
-    throw new Error(githubApiErrorMessage(getRes.status, errText, "read"));
-  }
   // 404 on GET: arquivo ainda não existe OU token inválido (GitHub mascara auth).
   // Segue para PUT; se for auth, o PUT também falha com mensagem clara.
 
@@ -2428,7 +2470,8 @@ async function publishToGitHub() {
   }
 
   try {
-    const { payload, json, warnings } = await collectPublishPayload();
+    const remote = await githubGetPublished(cfg);
+    const { payload, json, warnings } = await collectPublishPayload(remote.data);
     if (json.length > PUBLISH_MAX_JSON_CHARS) {
       alert(warnings.join("\n") || "Pacote grande demais para publicar.");
       return;
@@ -2438,16 +2481,17 @@ async function publishToGitHub() {
         "Alguns itens não entram no site público:\n\n" +
           warnings.slice(0, 8).join("\n") +
           (warnings.length > 8 ? `\n…e mais ${warnings.length - 8}.` : "") +
-          "\n\nContinuar publicando o restante?"
+          "\n\nContinuar publicando o restante? (fotos já publicadas antes são mantidas.)"
       );
       if (!proceed) return;
     }
-    await githubPutPublished(cfg, json);
+    await githubPutPublished(cfg, json, remote.sha);
     const url = publicSiteUrl(cfg);
+    const photoCount = payload.images ? Object.keys(payload.images).length : 0;
     alert(
       "Publicado!\n\nEm 1–2 minutos o site ao vivo deve atualizar:\n" +
         url +
-        "\n\nTextos, layout, ocultos e fotos razoáveis foram enviados. Vídeos grandes precisam estar em assets/."
+        `\n\nTextos, layout, ocultos e ${photoCount} foto(s) trocada(s) foram enviados. Vídeos grandes precisam estar em assets/.`
     );
   } catch (err) {
     console.error(err);
@@ -2491,6 +2535,8 @@ async function bootKit() {
   const published = await fetchPublishedJson();
   if (published) {
     await applyPublishedState(published);
+    /* Keep Trocar foto from this browser even if published.json still has empty images */
+    await applyImageOverrides();
     return;
   }
 
