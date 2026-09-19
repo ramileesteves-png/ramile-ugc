@@ -68,7 +68,7 @@ const DEFAULT_GALLERIES = {
     ],
   },
   beleza: {
-    title: "Beleza & moda",
+    title: "Pele, cabelo & tattoo",
     items: [
       { type: "image", src: "assets/festival-3.jpg", alt: "Beleza" },
       { type: "image", src: "assets/festival-2.jpg", alt: "Moda" },
@@ -78,7 +78,7 @@ const DEFAULT_GALLERIES = {
     ],
   },
   experiencias: {
-    title: "Experiências",
+    title: "Casa, reforma & viagem",
     items: [
       { type: "image", src: "assets/lifestyle-food.jpg", alt: "Gastronomia" },
       { type: "image", src: "assets/lifestyle-food-collage.jpg", alt: "Food collage" },
