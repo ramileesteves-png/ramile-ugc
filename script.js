@@ -1641,11 +1641,11 @@ function ensureAddButtons() {
     btn.type = "button";
     btn.className = "btn primary admin-add-btn";
     btn.id = "admin-add-story-video";
-    btn.textContent = "+ Adicionar vídeo";
+    btn.textContent = "+ Adicionar mídia";
     btn.addEventListener("click", () => pickCustomFile("story"));
     const tip = document.createElement("span");
     tip.className = "admin-add-tip";
-    tip.textContent = "Escolha um vídeo da sua galeria. Fica salvo neste navegador.";
+    tip.textContent = "Foto ou vídeo — fica salvo neste navegador.";
     wrap.append(btn, tip);
     storyGrid.insertAdjacentElement("beforebegin", wrap);
   }
@@ -1692,7 +1692,7 @@ function showAddButtons(on) {
 function pickCustomFile(kind) {
   const input = document.createElement("input");
   input.type = "file";
-  input.accept = kind === "photo" ? "image/*" : kind === "story" ? "video/*" : "image/*,video/*";
+  input.accept = kind === "photo" ? "image/*" : "image/*,video/*";
   input.hidden = true;
   document.body.appendChild(input);
   input.addEventListener("change", async () => {
@@ -1735,7 +1735,7 @@ async function addCustomMedia(kind, file) {
   let container;
   if (kind === "story") container = document.getElementById("story-videos");
   else if (kind === "couple") container = document.querySelector(".couple-grid");
-  else container = document.querySelector(".photo-grid");
+  else container = document.querySelector(".photo-grid") || document.getElementById("story-videos");
   if (container) {
     container.appendChild(el);
     saveContainerOrder(container);
@@ -1761,8 +1761,9 @@ async function renderCustomCard(entry) {
   figure.setAttribute("data-media-label", entry.label || "Mídia adicionada");
   figure.classList.add("media-custom");
 
-  if (entry.kind === "story") figure.classList.add("story-card");
+  if (entry.kind === "story") figure.classList.add("kit-item", entry.type === "image" ? "kit-photo" : "story-card");
   if (entry.kind === "couple") figure.classList.add("couple-custom");
+  if (entry.kind === "photo") figure.classList.add("kit-item", "kit-photo");
 
   if (entry.type === "video") {
     const video = document.createElement("video");
@@ -1799,7 +1800,7 @@ async function renderAllCustomMedia() {
     let container;
     if (entry.kind === "story") container = document.getElementById("story-videos");
     else if (entry.kind === "couple") container = document.querySelector(".couple-grid");
-    else container = document.querySelector(".photo-grid");
+    else container = document.querySelector(".photo-grid") || document.getElementById("story-videos");
     if (container) container.appendChild(el);
   }
 }
@@ -2190,7 +2191,7 @@ async function applyPublishedCustom(list) {
     let container;
     if (entry.kind === "story") container = document.getElementById("story-videos");
     else if (entry.kind === "couple") container = document.querySelector(".couple-grid");
-    else container = document.querySelector(".photo-grid");
+    else container = document.querySelector(".photo-grid") || document.getElementById("story-videos");
     if (container) container.appendChild(el);
   }
 }
