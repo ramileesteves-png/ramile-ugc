@@ -41,19 +41,8 @@ if (toggle && menu) {
 }
 
 const DEFAULT_GALLERIES = {
-  lifestyle: {
-    title: "Lifestyle & rotina",
-    items: [
-      { type: "image", src: "assets/lifestyle-2.jpg", alt: "Lifestyle" },
-      { type: "image", src: "assets/lifestyle-1.jpg", alt: "Rotina" },
-      { type: "image", src: "assets/lifestyle-3.jpg", alt: "Estética lifestyle" },
-      { type: "image", src: "assets/gallery-2.jpg", alt: "Dia a dia" },
-      { type: "video", src: "assets/videos/story-01.mp4" },
-      { type: "video", src: "assets/videos/story-10.mp4" },
-    ],
-  },
-  fitness: {
-    title: "Fitness & academia",
+  movimento: {
+    title: "Movimento",
     items: [
       { type: "image", src: "assets/gym/gym-16.jpg", alt: "Treino" },
       { type: "image", src: "assets/gym/gym-15.jpg", alt: "Activewear" },
@@ -67,23 +56,30 @@ const DEFAULT_GALLERIES = {
       { type: "video", src: "assets/videos/story-11.mp4" },
     ],
   },
-  beleza: {
-    title: "Pele, cabelo & tattoo",
+  casa: {
+    title: "Casa & reforma",
     items: [
-      { type: "image", src: "assets/festival-3.jpg", alt: "Beleza" },
-      { type: "image", src: "assets/festival-2.jpg", alt: "Moda" },
-      { type: "image", src: "assets/festival-1.jpg", alt: "Estética" },
-      { type: "image", src: "assets/hero-editorial.jpg", alt: "Editorial" },
-      { type: "image", src: "assets/about-portrait.jpg", alt: "Retrato" },
+      { type: "image", src: "assets/lifestyle-1.jpg", alt: "Casa" },
+      { type: "image", src: "assets/lifestyle-2.jpg", alt: "Decoração" },
+      { type: "image", src: "assets/gallery-2.jpg", alt: "Rotina em casa" },
+      { type: "image", src: "assets/lifestyle-3.jpg", alt: "Detalhes" },
     ],
   },
-  experiencias: {
-    title: "Casa, reforma & viagem",
+  chale: {
+    title: "Chalé · Serra de Macaé",
+    items: [
+      { type: "image", src: "assets/lifestyle-2.jpg", alt: "Projeto chalé" },
+      { type: "image", src: "assets/lifestyle-1.jpg", alt: "Construção e lar" },
+      { type: "image", src: "assets/gallery-2.jpg", alt: "Obra e detalhes" },
+    ],
+  },
+  viagens: {
+    title: "Viagens & experiências",
     items: [
       { type: "image", src: "assets/lifestyle-food.jpg", alt: "Gastronomia" },
       { type: "image", src: "assets/lifestyle-food-collage.jpg", alt: "Food collage" },
       { type: "image", src: "assets/lifestyle-burger.jpg", alt: "Burger" },
-      { type: "image", src: "assets/gym/gym-12.jpg", alt: "Lifestyle ao ar livre" },
+      { type: "image", src: "assets/gym/gym-12.jpg", alt: "Ao ar livre" },
       { type: "video", src: "assets/videos/story-04.mp4" },
       { type: "video", src: "assets/videos/story-07.mp4" },
       { type: "video", src: "assets/videos/story-08.mp4" },
@@ -91,7 +87,7 @@ const DEFAULT_GALLERIES = {
     ],
   },
   casal: {
-    title: "Nós dois",
+    title: "Vida a dois",
     items: [
       { type: "video", src: "assets/videos/story-01.mp4" },
       { type: "video", src: "assets/videos/story-06.mp4" },
@@ -99,6 +95,16 @@ const DEFAULT_GALLERIES = {
       { type: "image", src: "assets/lifestyle-burger.jpg", alt: "Comida e delivery" },
       { type: "image", src: "assets/lifestyle-food-collage.jpg", alt: "Momentos do dia a dia" },
       { type: "image", src: "assets/gym/gym-12.jpg", alt: "Lifestyle a dois" },
+    ],
+  },
+  beleza: {
+    title: "Beleza real",
+    items: [
+      { type: "image", src: "assets/festival-3.jpg", alt: "Beleza" },
+      { type: "image", src: "assets/festival-2.jpg", alt: "Cabelo e estética" },
+      { type: "image", src: "assets/festival-1.jpg", alt: "Cuidados" },
+      { type: "image", src: "assets/hero-editorial.jpg", alt: "Editorial" },
+      { type: "image", src: "assets/about-portrait.jpg", alt: "Retrato" },
     ],
   },
 };
